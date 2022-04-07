@@ -31,8 +31,9 @@
             <td>{{ programme.session.NbPlaces }}</td>
             <td>{{ programme.session.NbPlaces - programme.session.stagiaire | length}}</td>
             <td>{{ programme.session.stagiaire | length }}</td>
-            <td><a class="btn btn-primary" href="{{ path('show_programme', {'id' : programme.session.id}) }}"><i class="fa-solid fa-rectangle-list"></i></a></td>
+            <td><a class="btn btn-primary" href="{{ path('show_programme', {'id' : programme.id}) }}"><i class="fa-solid fa-rectangle-list"></i></a></td>
         </tr>
+        
         {% endfor %}
     </tbody>
 </table>

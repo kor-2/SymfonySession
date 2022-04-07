@@ -204,4 +204,9 @@ class Session
     {
         return $this->getNom();
     }
+
+    public function debutFin()
+    {
+        return $this->getDebut()->format('d/m/Y').' au '.$this->getFin()->format('d/m/Y');
+    }
 }

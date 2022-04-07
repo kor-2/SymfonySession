@@ -98,4 +98,12 @@ class ModuleFormation
 
         return $this;
     }
+
+    /**
+     * Nouvelle methode.
+     */
+    public function __toString()
+    {
+        return $this->getNom();
+    }
 }

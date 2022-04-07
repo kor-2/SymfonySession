@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SessionController!{% endblock %}
+
+{% block body %}
+
+
+<h1>{{ session }}</h1>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr class="text-center">
+            <th>Module</th>
+            <th>Nb jours</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for programme in session.programmes %}
+        <tr class="text-center">
+            <td>{{ programme.moduleFormation }} </td>
+            <td>{{ programme.nbJourModule }} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+
+
+
+{% endblock %}
