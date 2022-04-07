@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ stagiaire }}{% endblock %}
+
+{% block body %}
+<h1><i class="fa-solid fa-person fa-lg"></i> Fiche stagiaire</h1>
+
+<h2>{{ stagiaire }}</h2>
+
+<div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Sexe:</span>{{ stagiaire.sexe }}</li>
+        <li class="list-group-item"><span>Date de naissance:</span> {{ stagiaire.dateNaissance | date('d / m / Y')}} ({{ stagiaire.age }})</li>
+        <li class="list-group-item"><span>Ville:</span> {{ stagiaire.ville }}</li>
+        <li class="list-group-item"><span>Mail:</span> {{ stagiaire.mail }}</li>
+        <li class="list-group-item"><span>Téléphone:</span> {{ stagiaire.telephone }}</li>
+        <li class="list-group-item"><span>Téléphone:</span> {{ stagiaire.telephone }}</li>
+    </ul>
+</div>
+
+{% endblock %}
