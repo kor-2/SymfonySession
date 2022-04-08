@@ -5,6 +5,8 @@
 {% block body %}
 <h1><i class="fa-solid fa-rectangle-list fa-lg"></i> Liste des Sessions</h1>
 
+{# Session en cour #}
+<h2>Session en cour</h2>
 <table class="table table-striped align-middle">
     <thead>
         <tr class="text-center">
@@ -16,18 +18,77 @@
         </tr>
     </thead>
     <tbody>
-
         {% for session in sessions %}
-            
+            {% if jour | date('d/m/y') < session.fin | date('d/m/y')   and session.debut | date('d/m/y') > jour | date('d/m/y') %}        
+            <tr class="text-center">
+                <td><a class="" href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nom }}</a></td>
+                <td>{{ session.debut | date('d/m/y') }}</td>
+                <td>{{ session.fin | date('d/m/y') }}</td>
+                <td>{{ session.formation }}</td>
+                <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+
+{# Fin de la session #}
+<h2>Session pas debuté</h2>
+<table class="table table-striped align-middle">
+    <thead>
         <tr class="text-center">
-            <td><a class="" href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nom }}</a></td>
-            <td>{{ session.debut | date('d/m/y') }}</td>
-            <td>{{ session.fin | date('d/m/y') }}</td>
-            <td>{{ session.formation }}</td>
-            <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
+            <th>Nom</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Formation</th>
+            <th>Inscrits</th>
         </tr>
+    </thead>
+    <tbody>
+        {% for session in sessions %}
+            {% if session.debut | date('d/m/y') > jour | date('d/m/y')  %}        
+            <tr class="text-center">
+                <td><a class="" href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nom }}</a></td>
+                <td>{{ session.debut | date('d/m/y') }}</td>
+                <td>{{ session.fin | date('d/m/y') }}</td>
+                <td>{{ session.formation }}</td>
+                <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
+            </tr>
+            {% endif %}
         {% endfor %}
     </tbody>
 </table>
+
+{# Session fini #}
+<h2>Session fini</h2>
+<table class="table table-striped align-middle">
+    <thead>
+        <tr class="text-center">
+            <th>Nom</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Formation</th>
+            <th>Inscrits</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for session in sessions %}
+            {% if jour | date('d/m/y') > session.debut | date('d/m/y') %}        
+            <tr class="text-center">
+                <td><a class="" href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nom }}</a></td>
+                <td>{{ session.debut | date('d/m/y') }}</td>
+                <td>{{ session.fin | date('d/m/y') }}</td>
+                <td>{{ session.formation }}</td>
+                <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
 
 {% endblock %}

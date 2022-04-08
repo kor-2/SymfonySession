@@ -35,6 +35,11 @@ class ModuleFormation
      */
     private $programmes;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
@@ -105,5 +110,17 @@ class ModuleFormation
     public function __toString()
     {
         return $this->getNom();
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

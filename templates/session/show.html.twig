@@ -6,6 +6,9 @@
 
 
 <h1>{{ session }}</h1>
+<p>
+    {{ session.formation.description }}
+</p>
 
 <h2><span class="fw-bold">Formtaeur référent:</span> {{ session.formateur }} </h2>
 
@@ -23,6 +26,8 @@
 
     <div class="container">
         <h2>Stagiaire</h2>
+
+        {% if session.stagiaire | length > 1 %}
         <table class="table table-striped align-middle">
             <thead>
                 <tr class="text-center">
@@ -33,9 +38,32 @@
             </thead>
             <tbody>
                 {% for stagiaire in session.stagiaire %}
-                    
+                
                 <tr class="text-center">
                     
+                    <td><a href="{{ path('show_stagiaire', { 'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
+                    <td>{{ stagiaire.mail }}</td>
+                    <td>{{ stagiaire.telephone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p>Pas de stagiaire</p>
+        {% endif %}
+        <h2>Stagiaire non inscrits</h2>
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr class="text-center">
+                    <th>Nom</th>
+                    <th>Mail</th>
+                    <th>Téléphone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stagiaire in nonInscrits %}
+                    
+                <tr class="text-center">
                     <td><a href="{{ path('show_stagiaire', { 'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
                     <td>{{ stagiaire.mail }}</td>
                     <td>{{ stagiaire.telephone }}</td>
