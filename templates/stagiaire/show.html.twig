@@ -23,9 +23,9 @@
 
 <div class="container">
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{ session }} (du {{ session.debutFin }}) </li>
+        <li class="list-group-item"> <a href="{{ path('show_session', { 'id' : session.id }) }}">{{ session }}</a> (du {{ session.debutFin }}) </li>
     </ul>
-
+   
 </div>
     
 {% endfor %}

@@ -205,8 +205,22 @@ class Session
         return $this->getNom();
     }
 
+    /**
+     * affichage date debut et date fin.
+     */
     public function debutFin()
     {
         return $this->getDebut()->format('d/m/Y').' au '.$this->getFin()->format('d/m/Y');
+    }
+
+    /**
+     * duree formation.
+     */
+    public function duree()
+    {
+        $debut = $this->getDebut();
+        $fin = $this->getFin();
+
+        return $debut->diff($fin, true)->days.' jours';
     }
 }

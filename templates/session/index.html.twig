@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SessionController!{% endblock %}
+{% block title %}Liste des sessions{% endblock %}
 
 {% block body %}
 <h1><i class="fa-solid fa-rectangle-list fa-lg"></i> Liste des Sessions</h1>
@@ -12,10 +12,7 @@
             <th>Date de début</th>
             <th>Date de fin</th>
             <th>Formation</th>
-            <th>Nombre de places</th>
-            <th>Places restantes</th>
-            <th>Places prises</th>
-            <th>Détails programme</th>
+            <th>Inscrits</th>
         </tr>
     </thead>
     <tbody>
@@ -23,14 +20,11 @@
         {% for session in sessions %}
             
         <tr class="text-center">
-            <td>{{ session.nom }}</td>
+            <td><a class="" href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nom }}</a></td>
             <td>{{ session.debut | date('d/m/y') }}</td>
             <td>{{ session.fin | date('d/m/y') }}</td>
             <td>{{ session.formation }}</td>
-            <td>{{ session.NbPlaces }}</td>
-            <td>{{ session.NbPlaces - session.stagiaire | length}}</td>
-            <td>{{ session.stagiaire | length }}</td>
-            <td><a class="btn btn-light" href="{{ path('show_session', {'id' : session.id}) }}"><i class="fa-solid fa-rectangle-list"></i></a></td>
+            <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ formation }}{% endblock %}
+
+{% block body %}
+<h1>{{ formation }}</h1>
+
+<div class="container mt-5">
+
+    
+    <table class="table table-striped align-middle ">
+        <thead>
+            <tr class="text-center">
+                <th>Nom</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th>Formation</th>
+                <th>Nombre de places</th>
+                <th>Places restantes</th>
+                <th>Places prises</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for session in formation.sessions %}
+            
+            <tr class="text-center">
+                <td><a class="" href="{{ path('show_session', {'id' : session.id}) }}">{{ session.nom }}</a></td>
+                <td>{{ session.debut | date('d/m/y') }}</td>
+                <td>{{ session.fin | date('d/m/y') }}</td>
+                <td>{{ session.formation }}</td>
+                <td>{{ session.NbPlaces }}</td>
+                <td>{{ session.NbPlaces - session.stagiaire | length}}</td>
+                <td>{{ session.stagiaire | length }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

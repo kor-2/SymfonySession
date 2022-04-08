@@ -7,24 +7,67 @@
 
 <h1>{{ session }}</h1>
 
-<table class="table table-striped align-middle">
-    <thead>
-        <tr class="text-center">
-            <th>Module</th>
-            <th>Nb jours</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for programme in session.programmes %}
-        <tr class="text-center">
-            <td>{{ programme.moduleFormation }} </td>
-            <td>{{ programme.nbJourModule }} </td>
-        </tr>
-        {% endfor %}
-    </tbody>
+<h2><span class="fw-bold">Formtaeur référent:</span> {{ session.formateur }} </h2>
 
-</table>
+<div class="container mt-5">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span class="fw-bold">Date début:</span> {{ session.debut | date('d/m/Y') }} </li>
+        <li class="list-group-item"><span class="fw-bold">Date fin:</span> {{ session.fin | date('d/m/Y') }} </li>
+        <li class="list-group-item"><span class="fw-bold">Durée</span> {{ session.duree }} </li>
+        <li class="list-group-item"><span class="fw-bold">Nombre de place:</span> {{ session.nbplaces }} </li>
+        <li class="list-group-item"><span class="fw-bold">Places dispo:</span> {{ session.NbPlaces - session.stagiaire | length}} </li>
+    </ul>
+</div>
 
+<div class="container d-flex mt-5">
+
+    <div class="container">
+        <h2>Stagiaire</h2>
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr class="text-center">
+                    <th>Nom</th>
+                    <th>Mail</th>
+                    <th>Téléphone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stagiaire in session.stagiaire %}
+                    
+                <tr class="text-center">
+                    
+                    <td><a href="{{ path('show_stagiaire', { 'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
+                    <td>{{ stagiaire.mail }}</td>
+                    <td>{{ stagiaire.telephone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+
+        <h2>Programme</h2>
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr class="text-center">
+                    <th>Module</th>
+                    <th>Nb jours</th>
+                    <th>Catégorie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for programme in session.programmes %}
+                <tr class="text-center">
+                    <td>{{ programme.moduleFormation }} </td>
+                    <td>{{ programme.nbJourModule }} </td>
+                    <td>{{ programme.moduleFormation.categorie }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
 
 
 
