@@ -5,8 +5,10 @@
 {% block body %}
 <h1><i class="fa-solid fa-rectangle-list fa-lg"></i> Liste des Sessions</h1>
 
+
+<a class="btn btn-primary" href="{{ path('add_session') }}" >Ajout de session</a>
 {# Session en cour #}
-<h2>Session en cour</h2>
+<h2>Sessions en cour</h2>
 <table class="table table-striped align-middle">
     <thead>
         <tr class="text-center">
@@ -35,7 +37,7 @@
     
 
 {# Fin de la session #}
-<h2>Session pas debuté</h2>
+<h2>Sessions pas debuté</h2>
 <table class="table table-striped align-middle">
     <thead>
         <tr class="text-center">
@@ -62,7 +64,7 @@
 </table>
 
 {# Session fini #}
-<h2>Session fini</h2>
+<h2>Sessions fini</h2>
 <table class="table table-striped align-middle">
     <thead>
         <tr class="text-center">

@@ -9,18 +9,22 @@
 
 <table class="table table-striped">
     <thead>
-        <tr>
+        <tr class="text-center">
             <th>Nom</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
 
         {% for formateur in formateurs %}
             
-        <tr>
+        <tr class="text-center">
             <td><a href="{{ path('show_formateur', { 'id' : formateur.id}) }}">{{ formateur }}</a></td>
+            <td><a href="{{ path('update_formateur', { 'id' : formateur.id }) }}"><i class="fa-solid fa-pen"></i></a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<a class="btn btn-primary" href="{{ path('add_formateur') }}" >Ajouter un formateur</a>
 {% endblock %}

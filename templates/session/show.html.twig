@@ -27,13 +27,14 @@
     <div class="container">
         <h2>Stagiaire</h2>
 
-        {% if session.stagiaire | length > 1 %}
+        {% if session.stagiaire | length >= 1 %}
         <table class="table table-striped align-middle">
             <thead>
                 <tr class="text-center">
                     <th>Nom</th>
                     <th>Mail</th>
                     <th>Téléphone</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +45,7 @@
                     <td><a href="{{ path('show_stagiaire', { 'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
                     <td>{{ stagiaire.mail }}</td>
                     <td>{{ stagiaire.telephone }}</td>
+                    <td><a href="{{ path('del_sess_stagiaire', { 'id_sess': session.id , 'id_stag' : stagiaire.id}) }}"><i class="fa-solid fa-xmark"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -51,6 +53,7 @@
         {% else %}
             <p>Pas de stagiaire</p>
         {% endif %}
+
         <h2>Stagiaire non inscrits</h2>
         <table class="table table-striped align-middle">
             <thead>
@@ -58,6 +61,7 @@
                     <th>Nom</th>
                     <th>Mail</th>
                     <th>Téléphone</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,6 +71,7 @@
                     <td><a href="{{ path('show_stagiaire', { 'id': stagiaire.id}) }}">{{ stagiaire }}</a></td>
                     <td>{{ stagiaire.mail }}</td>
                     <td>{{ stagiaire.telephone }}</td>
+                    <td><a href="{{ path('add_sess_stagiaire', { 'id_sess': session.id , 'id_stag' : stagiaire.id}) }}"><i class="fa-solid fa-plus"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\SessionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
+use App\Repository\SessionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=SessionRepository::class)
@@ -52,6 +53,7 @@ class Session
 
     /**
      * @ORM\ManyToMany(targetEntity=Stagiaire::class, inversedBy="sessions")
+     * @OrderBy({"nom" = "ASC"})
      */
     private $stagiaire;
 

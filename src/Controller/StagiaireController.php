@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Stagiaire;
+use App\Form\StagiaireType;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StagiaireController extends AbstractController
 {
@@ -24,6 +26,36 @@ class StagiaireController extends AbstractController
     }
 
     /**
+     * @Route("/stagiaire/add", name="add_stagiaire")
+     * @Route("/stagiaire/update/{id}", name="update_stagiaire")
+     */
+    public function add(ManagerRegistry $doctrine, Stagiaire $stagiaire = null, Request $request): Response
+    {
+    if (!$stagiaire) {
+        $stagiaire = new Stagiaire();
+    }
+
+    $entityManager = $doctrine->getManager();
+    $form = $this->createForm(StagiaireType::class, $stagiaire);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $stagiaire = $form->getData();
+        $entityManager->persist($stagiaire);
+        $entityManager->flush();
+        
+
+        return $this->redirectToRoute('list_stagiaire');
+    }
+
+    return $this->render('stagiaire/add.html.twig', [
+        'addStagiaire' => $form->createView(),
+    ]);
+    }
+
+
+
+    /**
      * @Route("/stagiaire/{id}", name="show_stagiaire")
      */
     public function show(Stagiaire $stagiaire): Response
@@ -32,4 +64,5 @@ class StagiaireController extends AbstractController
             'stagiaire' => $stagiaire,
         ]);
     }
+
 }
