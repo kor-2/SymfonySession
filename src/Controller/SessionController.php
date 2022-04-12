@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ModuleFormation;
+use App\Entity\Programme;
 use App\Entity\Session;
 use App\Entity\Stagiaire;
 use App\Form\SessionType;
@@ -102,23 +103,52 @@ class SessionController extends AbstractController
     }
 
     /**
+     * Supprimer des modules.
+     */
+
+    /**
+     * @Route("/session/del_module/{id_sess}/{id_mod}", name="del_sess_module")
+     *
+     * @ParamConverter("session", options={"mapping" = {"id_sess" : "id"}})
+     * @ParamConverter("programme", options={"mapping" = {"id_mod" : "id"}})
+     */
+    public function delModule(Session $session, ManagerRegistry $doctrine, Programme $programme): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $session->removeProgramme($programme);
+        $entityManager->remove($programme);
+        $entityManager->persist($session);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_session', [
+            'id' => $session->getId(),
+    ]);
+    }
+
+    /**
      * Ajouter des modules.
      */
 
     /**
-     * @Route("/session/ajout_module/{id_sess}/{id_mod}", name="add_sess_module")
+     * @Route("/session/add_module/{id_sess}/{id_mod}", name="add_sess_module")
      *
      * @ParamConverter("session", options={"mapping" = {"id_sess" : "id"}})
      * @ParamConverter("module", options={"mapping" = {"id_mod" : "id"}})
      */
-    public function addModule(Session $session, ManagerRegistry $doctrine, ModuleFormation $mf): Response
+    public function addModule(Session $session, ManagerRegistry $doctrine, Request $request, ModuleFormation $module): Response
     {
         $entityManager = $doctrine->getManager();
-        //$session->addStagiaire($mf);
-        $entityManager->persist($session);
+
+        $programme = new Programme();
+
+        $nbJour = $request->request->get('nbJour');
+        $programme->setNbJourModule($nbJour);
+        $programme->setModuleFormation($module);
+        $programme->setSession($session);
+        $entityManager->persist($programme);
         $entityManager->flush();
 
-        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+        return $this->redirectToRoute('show_session', ['id' => $session->getId(), 'nbjour' => $nbJour]);
     }
 
     /**

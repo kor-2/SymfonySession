@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SessionController!{% endblock %}
+{% block title %}{{ session }}{% endblock %}
 
 {% block body %}
 
@@ -104,7 +104,7 @@
                     <td>{{ programme.moduleFormation }} </td>
                     <td>{{ programme.nbJourModule }} </td>
                     <td>{{ programme.moduleFormation.categorie }} </td>
-                    <td><a href=""><i class="fa-solid fa-xmark"></i></a> </td>
+                    <td><a href="{{ path('del_sess_module', { 'id_sess': session.id , 'id_mod' : programme.id}) }}"><i class="fa-solid fa-xmark"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -125,12 +125,18 @@
                 {% for prog in nonProg %}
                     
                 <tr class="text-center">
-                    <td>{{ prog.nom }}</td>
-                    <td> {{ prog.categorie }} </td>
-                    <td> duree </td>
-                    <td> <a href=""><i class="fa-solid fa-plus"></i></a></td>
+
+                    <form action="{{ path('add_sess_module', { 'id_sess': session.id , 'id_mod' : prog.id}) }}" method="post">
+
+                        <td>{{ prog.nom }}</td>
+                        <td>{{ prog.categorie }}</td>
+                        <td><input type="number" name="nbJour" min="1" value="1" id="nbJour" required>&nbsp;&nbsp;jours</td>
+                        <td><button class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i></button></td>
+
+                    </form>
                 </tr>
                 {% endfor %}
+
             </tbody>
         </table>
 
