@@ -45,6 +45,31 @@ class ModuleFormationRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * trouver les modules non programmés.
+     */
+    public function getNonProg($idSession)
+    {
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+
+        $qb = $sub;
+        $qb->select('s')
+            ->from('App\Entity\ModuleFormation', 's')
+            ->leftJoin('s.programmes', 'se')
+            ->where('se.session = :id');
+
+        $sub = $em->createQueryBuilder();
+        $sub->select('st')
+            ->from('App\Entity\ModuleFormation', 'st')
+            ->where($sub->expr()->notIn('st.id', $qb->getDQL()))
+            ->setParameter('id', $idSession)
+            ->orderby('st.categorie');
+        $query = $sub->getQuery();
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return ModuleFormation[] Returns an array of ModuleFormation objects
     //  */

@@ -17,17 +17,40 @@
     </ul>
 </div>
 
-<h2 class="mt-3">Sessions prévues</h2>
+<h2 class="mt-3">Sessions 
+    ({{ stagiaire.sessions | length }})
+</h2>
 
-{% for session in stagiaire.sessions %}
+<table class="table table-striped align-middle">
 
-<div class="container">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"> <a href="{{ path('show_session', { 'id' : session.id }) }}">{{ session }}</a> (du {{ session.debutFin }}) </li>
-    </ul>
-   
-</div>
-    
-{% endfor %}
+    <thead>
+        <tr class="text-center">
+            <th>Formation</th>
+            <th>Session</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Inscrit</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for session in stagiaire.sessions %}
+        <tr class="text-center">
+            <td><a href=" {{ path('show_formation', { 'id' : session.formation.id } )}} ">{{ session.formation }}</a></a></td>
+            <td><a href="{{ path('show_session', { 'id' : session.id }) }}">{{ session }}</a></td>
+            <td> {{ session.debut | date('d-m-Y') }} </td>
+            <td> {{ session.fin | date('d-m-Y') }} </td>
+            {% if session.stagiaire | length < session.NbPlaces %}
+
+            <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
+            {% else %}
+                <td><span class="badge bg-danger">SESSION PLEINE</span></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+  
+
 
 {% endblock %}

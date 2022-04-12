@@ -12,7 +12,9 @@
         <thead>
             <tr class="text-center">
                 <th>Nom</th>
+                <th>Catégorie</th>
                 <th>Description</th>
+                <th>Action</th>
             </tr>
         </thead>
 
@@ -21,7 +23,9 @@
                 
             <tr class="text-center">
                 <td>{{ module.nom }}</td>
+                <td>{{ module.categorie }}</td>
                 <td>{{ module.description}}</td>
+                <td><a href="{{ path('update_module_formation', { 'id' : module.id }) }}"><i class="fa-solid fa-pen"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

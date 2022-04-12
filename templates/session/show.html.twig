@@ -12,6 +12,8 @@
 
 <h2><span class="fw-bold">Formtaeur référent:</span> {{ session.formateur }} </h2>
 
+<a class="btn btn-primary" href="{{ path('update_session', {'id' : session.id}) }}">Modifier</a>
+
 <div class="container mt-5">
     <ul class="list-group list-group-flush">
         <li class="list-group-item"><span class="fw-bold">Date début:</span> {{ session.debut | date('d/m/Y') }} </li>
@@ -55,6 +57,10 @@
         {% endif %}
 
         <h2>Stagiaire non inscrits</h2>
+
+        {% if session.stagiaire | length < session.nbplaces %}
+            
+        
         <table class="table table-striped align-middle">
             <thead>
                 <tr class="text-center">
@@ -76,6 +82,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+            <p>Session pleine</p>
+        {% endif %}
     </div>
     <div class="container">
 
@@ -86,6 +95,7 @@
                     <th>Module</th>
                     <th>Nb jours</th>
                     <th>Catégorie</th>
+                    <th>Déprogrammer</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,6 +104,31 @@
                     <td>{{ programme.moduleFormation }} </td>
                     <td>{{ programme.nbJourModule }} </td>
                     <td>{{ programme.moduleFormation.categorie }} </td>
+                    <td><a href=""><i class="fa-solid fa-xmark"></i></a> </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>Module non programmés</h3>
+
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr class="text-center">
+                    <th>Module</th>
+                    <th>Catégorie</th>
+                    <th>Durée</th>
+                    <th>Programmer</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for prog in nonProg %}
+                    
+                <tr class="text-center">
+                    <td>{{ prog.nom }}</td>
+                    <td> {{ prog.categorie }} </td>
+                    <td> duree </td>
+                    <td> <a href=""><i class="fa-solid fa-plus"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -16,8 +16,7 @@
                 <th>Date de fin</th>
                 <th>Formation</th>
                 <th>Nombre de places</th>
-                <th>Places restantes</th>
-                <th>Places prises</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -29,9 +28,13 @@
                 <td>{{ session.debut | date('d/m/y') }}</td>
                 <td>{{ session.fin | date('d/m/y') }}</td>
                 <td>{{ session.formation }}</td>
-                <td>{{ session.NbPlaces }}</td>
-                <td>{{ session.NbPlaces - session.stagiaire | length}}</td>
-                <td>{{ session.stagiaire | length }}</td>
+                {% if session.stagiaire | length < session.NbPlaces %}
+
+                <td>{{ session.stagiaire | length}}/{{ session.NbPlaces }}</td>
+                {% else %}
+                    <td><span class="badge bg-danger">SESSION PLEINE</span></td>
+                {% endif %}
+                <td><a class="" href="{{ path('update_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>

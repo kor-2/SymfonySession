@@ -45,6 +45,52 @@ class SessionRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Recherche de session en cour.
+     */
+    public function enCour()
+    {
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.debut < :today')
+            ->andWhere('s.fin > :today')
+            ->setParameter('today', $today)
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Recherche e session fini.
+     */
+    public function finSess()
+    {
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.fin < :today')
+            ->setParameter('today', $today)
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Recherche e session a venir.
+     */
+    public function aVenirSess()
+    {
+        $today = new \DateTime();
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.debut > :today')
+            ->setParameter('today', $today)
+            ->orderBy('s.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Session[] Returns an array of Session objects
     //  */
