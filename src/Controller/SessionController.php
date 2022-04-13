@@ -22,7 +22,7 @@ class SessionController extends AbstractController
     /**
      * @Route("/session", name="list_session")
      */
-    public function index(ManagerRegistry $doctrine, SessionRepository $sr): Response
+    public function index(SessionRepository $sr): Response
     {
         $sessEnCour = $sr->enCour();
         $sessFini = $sr->finSess();
@@ -59,6 +59,7 @@ class SessionController extends AbstractController
 
         return $this->render('session/add.html.twig', [
         'addSession' => $form->createView(),
+        'sessionId' => $session->getId(),
     ]);
     }
 
