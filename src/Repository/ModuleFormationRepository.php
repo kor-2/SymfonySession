@@ -54,17 +54,17 @@ class ModuleFormationRepository extends ServiceEntityRepository
         $sub = $em->createQueryBuilder();
 
         $qb = $sub;
-        $qb->select('s')
-            ->from('App\Entity\ModuleFormation', 's')
-            ->leftJoin('s.programmes', 'se')
+        $qb->select('mf')
+            ->from('App\Entity\ModuleFormation', 'mf')
+            ->leftJoin('mf.programmes', 'se')
             ->where('se.session = :id');
 
         $sub = $em->createQueryBuilder();
-        $sub->select('st')
-            ->from('App\Entity\ModuleFormation', 'st')
-            ->where($sub->expr()->notIn('st.id', $qb->getDQL()))
+        $sub->select('modf')
+            ->from('App\Entity\ModuleFormation', 'modf')
+            ->where($sub->expr()->notIn('modf.id', $qb->getDQL()))
             ->setParameter('id', $idSession)
-            ->orderby('st.categorie');
+            ->orderby('modf.categorie');
         $query = $sub->getQuery();
 
         return $query->getResult();

@@ -3,9 +3,33 @@
 {% block title %}Page Home{% endblock %}
 
 {% block body %}
-<h1>Page Home</h1>
 
+<h1>Page Home</h1>
+{% if app.user %}
 <h2>Bienvenue {{ app.user.pseudo }}</h2>
 <p>{{ app.user.email }}</p>
 
+{% endif %}
+<div class="row">
+    <div class="card mx-3 col" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Nombre de stagiaire</h5>
+
+            <p class="h3">{{ stagiaires | length }}</p>
+        </div>
+    </div>
+    <div class="card mx-3 col" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Nombre de formation</h5>
+            <p class="h3">{{ formations | length }}</p>
+        </div>
+    </div>
+    <div class="card mx-3 col" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Nombre de formateur</h5>
+            <p class="h3">{{ formateurs | length }}</p>
+        </div>
+    </div>
+</div>
+    
 {% endblock %}
