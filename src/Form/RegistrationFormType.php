@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -36,6 +38,19 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
+                'constraints' => [
+                    new NotBlank(
+                        [
+                            'message' => 'Mot de passe vide',
+                        ]
+                    ),
+                    new Regex(
+                        [
+                            'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",
+                            'message' => 'Doit contenir: majuscule, minuscule, chiffre et un caratère spécial',
+                        ]
+                    ),
+                ],
             ])
         ;
     }
